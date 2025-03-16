@@ -34,7 +34,7 @@ class AdminerDumpMarkdownDict {
 
     function __construct(){
         $this->time = time();
-        $this->title = lang('Database schema');
+        $this->title = Adminer\lang('Database schema');
         $this->date = date('Y/m/d H:i:s', $this->time);
     }
 
@@ -45,14 +45,14 @@ class AdminerDumpMarkdownDict {
     function dumpTable($table, $style, $is_view = false) {
         if ($_POST["format"] == $this->type) {
             if($table == 0){
-                $status = table_status1($table);
+                $status = Adminer\table_status1($table);
                 
                 echo "\r\n\r\n\r\n\r\n# {$status['Name']} {$status['Comment']}";
                 echo $this->_table_head();
                 echo "\r\n| {$status['Name']} | {$status['Engine']} | {$status['Collation']} | {$status['Auto_increment']} | {$status['Data_length']} | {$status['Comment']} |";
 
                 echo $this->_field_head();
-                foreach(fields($table) as $field){
+                foreach(Adminer\fields($table) as $field){
                     $this->_b($field['primary']);
                     $this->_b($field['auto_increment']);
                     $this->_b($field['null']);
@@ -93,12 +93,12 @@ class AdminerDumpMarkdownDict {
     function dumpHeaders($identifier, $multi_table = false) {
         if ($_POST["format"] == $this->type) {
             header("Content-Type: text/text; charset=utf-8");
-            echo "\r\n# {$this->title}\r\n\r\n". lang('Time') .":{$this->date}";
+            echo "\r\n# {$this->title}\r\n\r\n". Adminer\lang('Time') .":{$this->date}";
             return 'md';
         }
     }
 
     function _b(&$s){
-        $s = $s ? '**'. lang('yes') .'**' : lang('no');
+        $s = $s ? '**'. Adminer\lang('yes') .'**' : Adminer\lang('no');
     }
 }
