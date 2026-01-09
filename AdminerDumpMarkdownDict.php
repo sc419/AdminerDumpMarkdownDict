@@ -44,7 +44,7 @@ class AdminerDumpMarkdownDict {
 
     function dumpTable($table, $style, $is_view = false) {
         if ($_POST["format"] == $this->type) {
-            if($table == 0){
+            if($table){
                 $status = Adminer\table_status1($table);
                 
                 echo "\r\n\r\n\r\n\r\n# {$status['Name']} {$status['Comment']}";
@@ -66,7 +66,7 @@ class AdminerDumpMarkdownDict {
     function _table_head(){
         static $head = null;
         if(!$head){
-            $fields = array_map('lang', $this->_fields['table']);
+            $fields = array_map('Adminer\lang', $this->_fields['table']);
             $head = implode(' | ', $fields);
             $head = "\r\n\r\n\r\n| $head |\r\n| -- | -- | -- | -- | -- | -- |";
         }
@@ -76,7 +76,7 @@ class AdminerDumpMarkdownDict {
     function _field_head(){
         static $head = null;
         if(!$head){
-            $fields = array_map('lang', $this->_fields['field']);
+            $fields = array_map('Adminer\lang', $this->_fields['field']);
             $head = implode(' | ', $fields);
             $head = "\r\n\r\n\r\n| $head |\r\n| -- | -- | -- | -- | -- | -- | -- |";
         }
